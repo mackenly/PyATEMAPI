@@ -23,9 +23,9 @@ class Tally:
         :return: string - the tally state of the given source. Can be either 'preview', 'program', or 'none'
         """
         return {
-            'source': source,
-            'preview': self.switcher.tally.bySource.flags[source].preview,
-            'program': self.switcher.tally.bySource.flags[source].program,
+            "source": source,
+            "preview": self.switcher.tally.bySource.flags[source].preview,
+            "program": self.switcher.tally.bySource.flags[source].program,
         }
 
     def get_all(self):
@@ -46,10 +46,10 @@ class Tally:
         for source in range(1, self.switcher.tally.byIndex.sources + 1):
             if self.get(source)['program']:
                 return {
-                    'source': source,
+                    "source": source,
                 }
         return {
-            'source': -1,
+            "source": -1,
         }
 
     def get_preview(self):
@@ -60,8 +60,8 @@ class Tally:
         for source in range(1, self.switcher.tally.byIndex.sources + 1):
             if self.get(source)['preview']:
                 return {
-                    'source': source,
+                    "source": source,
                 }
         return {
-            'source': -1,
+            "source": -1,
         }

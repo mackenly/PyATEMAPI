@@ -25,7 +25,7 @@ Run setup.py to start the server. Pass in as parameters the IP address of the AT
 After starting the server, you can use the web API to interact with the ATEM Switcher.
 
 ## Documentation
-The API documentation is available at [todo].
+The API documentation is available through Postman at [https://documenter.getpostman.com/view/19380446/UzQpvT1y](https://documenter.getpostman.com/view/19380446/UzQpvT1y).
 
 ## Contributing
 Contributions are welcome. Please open an issue or pull request on [mackenly/PyATEMAPI](https://github.com/mackenly/PyATEMAPI).

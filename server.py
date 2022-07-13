@@ -12,22 +12,31 @@ from http.server import *
 # create the switcher object
 switcher = PyATEMMax.ATEMMax()
 api = Api(switcher)
+passphrase = 'Password1'
 
 
 class GFG(BaseHTTPRequestHandler):
     # on GET...
     def do_GET(self):
-        # http response code - success
-        self.send_response(200)
-        # http header - content type - html
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-        # http body - json
-        print(self.path)
-        self.wfile.write(bytes(str(api.get(self.path)), "utf8"))
-        #self.wfile.write(b'{"success": "hello world"}')
-        switcher.setProgramInputVideoSource(0, 1)
-        log.info("GET request received, sent response")
+        if self.headers.get('Authorization') == passphrase:
+            # http response code - success
+            self.send_response(200)
+            # http header - content type - html
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            # http body - json
+            self.wfile.write(bytes(str(api.get(self.path)), "utf8"))
+            switcher.setProgramInputVideoSource(0, 1)
+            log.info("GET request received, sent response")
+        else:
+            # http response code - unauthorized
+            self.send_response(401)
+            # http header - content type - html
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            # http body - json
+            self.wfile.write(b'{"error": "unauthorized"}')
+            log.error("GET request received, unauthorized")
         return
 
     # on POST...

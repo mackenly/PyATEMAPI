@@ -31,7 +31,7 @@ class Api:
             path = path[:-1]
 
         # process the path, trigger the correct method
-        if path == '/' or path == '/model':
+        if path == '' or path == '/model':
             print('/')
             return {
                 'model': self.switcher.atemModel,
@@ -46,5 +46,5 @@ class Api:
             return self.tally.get_preview()
         else:
             return {
-                'error': 'invalid request',
+                "error": "invalid request",
             }
