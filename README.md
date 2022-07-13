@@ -11,7 +11,7 @@ This API allows developers to interact with ATEM Switchers without having to wri
 ## Roadmap / Features
 - [x] v0.1 Get list of inputs and their tally data
 - [x] v0.1 Get individual input's tally data
-- [ ] v0.2 Implement [connection methods](https://clvlabs.github.io/PyATEMMax/docs/methods/connect/)
+- [x] v0.2 Implement [connection methods](https://clvlabs.github.io/PyATEMMax/docs/methods/connect/)
 - [ ] v0.2 Implement [execute methods](https://clvlabs.github.io/PyATEMMax/docs/methods/exec/)
 - [ ] v0.2 Implement [get methods](https://clvlabs.github.io/PyATEMMax/docs/data/)
 - [ ] v0.2 Implement [set methods](https://clvlabs.github.io/PyATEMMax/docs/methods/set/)

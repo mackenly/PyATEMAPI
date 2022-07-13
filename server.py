@@ -13,11 +13,13 @@ from http.server import *
 switcher = PyATEMMax.ATEMMax()
 api = Api(switcher)
 passphrase = 'Password1'
+ip = '127.0.0.1'
 
 
 class GFG(BaseHTTPRequestHandler):
     # on GET...
     def do_GET(self):
+        global passphrase, ip
         if self.headers.get('Authorization') == passphrase:
             # http response code - success
             self.send_response(200)
@@ -25,7 +27,7 @@ class GFG(BaseHTTPRequestHandler):
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             # http body - json
-            self.wfile.write(bytes(str(api.get(self.path)), "utf8"))
+            self.wfile.write(bytes(str(api.get(self.path, passphrase, ip)), "utf8"))
             switcher.setProgramInputVideoSource(0, 1)
             log.info("GET request received, sent response")
         else:
@@ -57,6 +59,11 @@ def main():
     parser.add_argument('ip', help='switcher IP address')
     parser.add_argument('passphrase', help='passphrase to compare requests to', type=str, default='Password1')
     args = parser.parse_args()
+
+    # set global variables
+    global passphrase, ip
+    passphrase = args.passphrase
+    ip = args.ip
 
     log.info("Initializing switcher")
     switcher.setLogLevel(logging.INFO) # Set switcher verbosity (try DEBUG to see more)
