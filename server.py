@@ -43,14 +43,26 @@ class GFG(BaseHTTPRequestHandler):
 
     # on POST...
     def do_POST(self):
-        # http response code - invalid request
-        self.send_response(400)
-        # http header - content type - json
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-        # http body - json
-        self.wfile.write(b'{"error": "invalid request"}')
-        log.info("POST request received, sent response")
+        global passphrase, ip
+        if self.headers.get('Authorization') == passphrase:
+            # http response code - success
+            self.send_response(200)
+            # http header - content type - html
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            # http body - json
+            self.wfile.write(bytes(str(api.post(self.path, passphrase, ip)), "utf8"))
+            switcher.setProgramInputVideoSource(0, 1)
+            log.info("POST request received, sent response")
+        else:
+            # http response code - unauthorized
+            self.send_response(401)
+            # http header - content type - html
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            # http body - json
+            self.wfile.write(b'{"error": "unauthorized"}')
+            log.error("POST request received, unauthorized")
         return
 
 

@@ -9,12 +9,17 @@ Why build a web API for ATEM?
 This API allows developers to interact with ATEM Switchers without having to write desktop code. Instead, developers can now interact with an ATEM through the browser using simple web APIs with Javascript.
 
 ## Roadmap / Features
-- [x] v0.1 Get list of inputs and their tally data
-- [x] v0.1 Get individual input's tally data
-- [x] v0.2 Implement [connection methods](https://clvlabs.github.io/PyATEMMax/docs/methods/connect/)
-- [ ] v0.2 Implement [execute methods](https://clvlabs.github.io/PyATEMMax/docs/methods/exec/)
-- [ ] v0.2 Implement [get methods](https://clvlabs.github.io/PyATEMMax/docs/data/)
-- [ ] v0.2 Implement [set methods](https://clvlabs.github.io/PyATEMMax/docs/methods/set/)
+- [x] Fully Documented in [Postman](https://documenter.getpostman.com/view/19380446/UzQpvT1y)
+- [x] Get tally data
+- [x] Fade to black
+- [x] Cut
+- [x] Auto transition
+- [x] Set preview
+- [x] Set program
+- [x] Ping switcher
+- [x] Disconnect from switcher
+- [ ] Connect to switcher
+- [ ] Fully Test using real switcher (built using simulator)
 
 ## Usage
 Clone PyATEMAPI to your machine by running:

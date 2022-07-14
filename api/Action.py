@@ -9,62 +9,49 @@ class Action:
     Action class allows for executing actions on the switcher's specified ME.
     """
 
-    def __init__(self, switcher, me=0):
+    def __init__(self, switcher):
         """
         Initialize the tally class.
         :param switcher: the switcher object that we're getting the tally from.
         """
         self.switcher = switcher
-        self.me = me
+        self.me = 0
 
-    def cut(self):
+    def set_me(self, me):
         """
-        Cut the current preview to program.
-        :return: the current input number in preview and program.
+        Set the ME to use.
+        :param me: the ME to use.
+        :return: the current ME.
         """
-        self.switcher.execCutME(self.me)
-        return {
-            "program": self.switcher.programInput[self.me].videoSource,
-            "preview": self.switcher.previewInput[self.me].videoSource,
-        }
+        self.me = int(me)
+        return self.me
 
-    def cut(self, source):
+    def cut(self, source=None):
         """
-        Cut the specified input from preview to program.
+        Cut the specified input (if provided) from preview to program.
         :param source: source to cut to
         :return: the current input number in preview and program.
         """
-        self.switcher.setPreviewInputVideoSource(self.me, source)
+        if source is not None:
+            self.switcher.setPreviewInputVideoSource(self.me, source)
         self.switcher.execCutME(self.me)
         return {
-            "program": self.switcher.programInput[self.me].videoSource,
-            "preview": self.switcher.previewInput[self.me].videoSource,
+            "program": self.switcher.programInput[self.me].videoSource.value,
+            "preview": self.switcher.previewInput[self.me].videoSource.value,
         }
 
-    def auto(self):
+    def auto(self, source=None):
         """
-        Auto mix the current preview to program.
-        :return: current program/preview with the transition state.
-        """
-        self.switcher.execAutoME(self.me)
-        return {
-            "program": self.switcher.programInput[self.me].videoSource,
-            "preview": self.switcher.previewInput[self.me].videoSource,
-            "inTransition": self.switcher.transition[self.me].inTransition,
-            "framesRemaining": self.switcher.transition[self.me].framesRemaining,
-        }
-
-    def auto(self, source):
-        """
-        Auto mix the specified input from preview to program.
+        Auto mix the specified input (if provided) from preview to program.
         :param source: source to auto mix to.
         :return: current program/preview with the transition state.
         """
-        self.switcher.setPreviewInputVideoSource(self.me, source)
+        if source is not None:
+            self.switcher.setPreviewInputVideoSource(self.me, source)
         self.switcher.execAutoME(self.me)
         return {
-            "program": self.switcher.programInput[self.me].videoSource,
-            "preview": self.switcher.previewInput[self.me].videoSource,
+            "program": self.switcher.programInput[self.me].videoSource.value,
+            "preview": self.switcher.previewInput[self.me].videoSource.value,
             "inTransition": self.switcher.transition[self.me].inTransition,
             "framesRemaining": self.switcher.transition[self.me].framesRemaining,
         }
@@ -74,10 +61,34 @@ class Action:
         Fade to black.
         :return: FTB rate, frames remaining, if it's fully in FTB, and if it's in transition to FTB.
         """
-        self.switcher.execAutoME(self.me)
+        self.switcher.execFadeToBlackME(self.me)
         return {
             "rate": self.switcher.fadeToBlack[self.me].rate,
             "framesRemaining": self.switcher.fadeToBlack[self.me].state.framesRemaining,
             "fullyBlack": self.switcher.fadeToBlack[self.me].state.fullyBlack,
             "inTransition": self.switcher.fadeToBlack[self.me].state.inTransition,
+        }
+
+    def preview(self, source=None):
+        """
+        Set the preview input.
+        :param source: source to set preview to.
+        :return: current preview input.
+        """
+        if source is not None:
+            self.switcher.setPreviewInputVideoSource(self.me, source)
+        return {
+            "preview": self.switcher.previewInput[self.me].videoSource.value,
+        }
+
+    def program(self, source=None):
+        """
+        Set the program input.
+        :param source: source to set program to.
+        :return: current program input.
+        """
+        if source is not None:
+            self.switcher.setProgramInputVideoSource(self.me, source)
+        return {
+            "program": self.switcher.programInput[self.me].videoSource.value,
         }
