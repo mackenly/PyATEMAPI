@@ -6,6 +6,6 @@ PyATEMMax==1.0b7
 Send2Trash==1.8.0
 six==1.16.0
 tenacity==8.0.1
-urllib3==1.26.10
+urllib3==1.26.11
 wcwidth==0.2.5
 webencodings==0.5.1
