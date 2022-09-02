@@ -1,11 +1,11 @@
 ﻿cefpython3==66.1
-charset-normalizer==2.1.0
+charset-normalizer==2.1.1
 idna==3.3
-plotly==5.9.0
-PyATEMMax==1.0b7
+plotly==5.10.0
+PyATEMMax==1.0b8
 Send2Trash==1.8.0
 six==1.16.0
 tenacity==8.0.1
-urllib3==1.26.10
+urllib3==1.26.11
 wcwidth==0.2.5
 webencodings==0.5.1
