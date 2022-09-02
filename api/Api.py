@@ -76,19 +76,6 @@ class Api:
             return {
                 'model': self.switcher.atemModel,
             }
-        elif '/connection' in path:
-            if path == '/connection':
-                return {
-                    'connected': self.switcher.waitForConnection(infinite=False),
-                    'model': self.switcher.atemModel,
-                }
-            elif path == '/connection/disconnect':
-                self.switcher.disconnect()
-                print('Disconnected from switcher via API.')
-                return {
-                    'connected': False,
-                }
-            # TODO - add a connect and reconnect route (needs testing on real ATEM, not sim)
         elif '/action' in path:
             """
                 Paths in /action are currently untested.
