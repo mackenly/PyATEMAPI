@@ -28,7 +28,6 @@ class GFG(BaseHTTPRequestHandler):
             self.end_headers()
             # http body - json
             self.wfile.write(bytes(str(api.get(self.path, passphrase, ip)), "utf8"))
-            switcher.setProgramInputVideoSource(0, 1)
             log.info("GET request received, sent response")
         else:
             # http response code - unauthorized
@@ -52,7 +51,6 @@ class GFG(BaseHTTPRequestHandler):
             self.end_headers()
             # http body - json
             self.wfile.write(bytes(str(api.post(self.path, passphrase, ip)), "utf8"))
-            switcher.setProgramInputVideoSource(0, 1)
             log.info("POST request received, sent response")
         else:
             # http response code - unauthorized
