@@ -108,9 +108,14 @@ class Api:
                 return self.action.preview(int(params[1]))
             elif '/action/program' in path and len(path) > 15:
                 params = path[16:].split('/')
-                print(params)
                 self.action.set_me(int(params[0]))
                 return self.action.program(int(params[1]))
+            elif '/action/dsk/cut' in path and len(path) > 15:
+                params = path[16:].split('/')
+                return self.action.dsk_cut(int(params[0]))
+            elif '/action/dsk/tie' in path and len(path) > 15:
+                params = path[16:].split('/')
+                return self.action.dsk_tie(int(params[0]))
         return {
                 "error": "invalid request",
             }

@@ -69,6 +69,30 @@ class Action:
             "inTransition": self.switcher.fadeToBlack[self.me].state.inTransition,
         }
 
+    def dsk_cut(self, dsk=None):
+        """
+        Cut to this DSK
+        :param dsk: DSK to use
+        :return: current program input.
+        """
+        if dsk is not None:
+            self.switcher.setDownstreamKeyerOnAir(dsk, not self.switcher.downstreamKeyer[dsk].onAir)
+        return {
+            "result": self.switcher.downstreamKeyer[dsk].onAir,
+        }
+
+    def dsk_tie(self, dsk=None):
+        """
+        Tie this DSK
+        :param dsk: DSK to use
+        :return: current program input.
+        """
+        if dsk is not None:
+            self.switcher.setDownstreamKeyerTie(dsk, not self.switcher.downstreamKeyer[dsk].Tie)
+        return {
+            "result": self.switcher.downstreamKeyer[dsk].Tie,
+        }
+
     def preview(self, source=None):
         """
         Set the preview input.
