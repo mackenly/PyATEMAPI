@@ -121,6 +121,28 @@ class Api:
             elif '/action/dsk/tie' in path and len(path) > 15:
                 params = path[16:].split('/')
                 return self.action.dsk_tie(int(params[0]))
+        elif '/media' in path:
+            if '/media/' in path and '/loop' in path and len(path) > 12:
+                params = path[7:].split('/')
+                return self.media.set_loop(int(params[0]), params[2])
+            elif '/media/' in path and '/playing' in path and len(path) > 12:
+                params = path[7:].split('/')
+                return self.media.set_playing(int(params[0]), params[2])
+            elif '/media/' in path and '/beginning' in path and len(path) > 12:
+                params = path[7:].split('/')
+                return self.media.set_beginning(int(params[0]), params[2])
+            elif '/media/' in path and '/frame' in path and len(path) > 12:
+                params = path[7:].split('/')
+                return self.media.set_frame(int(params[0]), params[2])
+            elif '/media/' in path and '/type' in path and len(path) > 12:
+                params = path[7:].split('/')
+                return self.media.set_type(int(params[0]), params[2])
+            elif '/media/' in path and '/still' in path and len(path) > 12:
+                params = path[7:].split('/')
+                return self.media.set_still(int(params[0]), params[2])
+            elif '/media/' in path and '/clip' in path and len(path) > 12:
+                params = path[7:].split('/')
+                return self.media.set_clip(int(params[0]), params[2])
         return {
                 "error": "invalid request",
             }
