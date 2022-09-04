@@ -5,6 +5,7 @@
 
 from api.Action import Action
 from api.Tally import Tally
+from api.Media import Media
 
 
 class Api:
@@ -19,6 +20,7 @@ class Api:
         """
         self.switcher = switcher
         self.tally = Tally(self.switcher)
+        self.media = Media(self.switcher)
         self.action = Action(self.switcher)
 
     def get(self, path, passphrase=None, ip=None):
@@ -54,6 +56,9 @@ class Api:
                 return self.tally.get_program()
             elif path == '/tally/preview':
                 return self.tally.get_preview()
+        elif '/media' in path:
+            if path == '/media':
+                return self.media.get_media()
         return {
                 "error": "invalid request",
             }
