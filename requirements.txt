@@ -1,6 +1,6 @@
 ﻿cefpython3==66.1
 charset-normalizer==2.1.1
-idna==3.3
+idna==3.4
 plotly==5.10.0
 PyATEMMax==1.0b8
 Send2Trash==1.8.0
