@@ -1,5 +1,5 @@
 ﻿cefpython3==66.1
-charset-normalizer==2.1.1
+charset-normalizer==3.0.1
 idna==3.4
 plotly==5.10.0
 PyATEMMax==1.0b9
