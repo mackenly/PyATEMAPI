@@ -5,6 +5,7 @@
 
 import argparse
 import logging
+import json
 import PyATEMMax
 from api.Api import Api
 from http.server import *
@@ -25,15 +26,25 @@ class GFG(BaseHTTPRequestHandler):
             self.send_response(200)
             # http header - content type - html
             self.send_header('Content-type', 'application/json')
+            # CORS headers
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            self.send_header('Access-Control-Allow-Headers', 'Authorization')
+            self.send_header('Access-Control-Allow-Headers', 'Content-Type')
             self.end_headers()
             # http body - json
-            self.wfile.write(bytes(str(api.get(self.path, passphrase, ip)), "utf8"))
+            self.wfile.write(bytes(str(json.dumps(api.get(self.path, passphrase, ip))), "utf8"))
             log.info("GET request received, sent response")
         else:
             # http response code - unauthorized
             self.send_response(401)
             # http header - content type - html
             self.send_header('Content-type', 'application/json')
+            # CORS headers
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            self.send_header('Access-Control-Allow-Headers', 'Authorization')
+            self.send_header('Access-Control-Allow-Headers', 'Content-Type')
             self.end_headers()
             # http body - json
             self.wfile.write(b'{"error": "unauthorized"}')
@@ -48,20 +59,47 @@ class GFG(BaseHTTPRequestHandler):
             self.send_response(200)
             # http header - content type - html
             self.send_header('Content-type', 'application/json')
+            # CORS headers
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            self.send_header('Access-Control-Allow-Headers', 'Authorization')
+            self.send_header('Access-Control-Allow-Headers', 'Content-Type')
             self.end_headers()
             # http body - json
-            self.wfile.write(bytes(str(api.post(self.path, passphrase, ip)), "utf8"))
+            self.wfile.write(bytes(str(json.dumps(api.post(self.path, passphrase, ip))), "utf8"))
             log.info("POST request received, sent response")
         else:
             # http response code - unauthorized
             self.send_response(401)
             # http header - content type - html
             self.send_header('Content-type', 'application/json')
+            # CORS headers
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            self.send_header('Access-Control-Allow-Headers', 'Authorization')
+            self.send_header('Access-Control-Allow-Headers', 'Content-Type')
             self.end_headers()
             # http body - json
             self.wfile.write(b'{"error": "unauthorized"}')
             log.error("POST request received, unauthorized")
         return
+
+    # on OPTIONS...
+    def do_OPTIONS(self):
+        global passphrase, ip
+        # http response code - success
+        self.send_response(200)
+        # http header - content type - html
+        self.send_header('Content-type', 'application/json')
+        # CORS headers
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Authorization')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.end_headers()
+        # http body - json
+        self.wfile.write(bytes(str(json.dumps(api.options(self.path, passphrase, ip))), "utf8"))
+        log.info("OPTIONS request received, sent response")
 
 
 def main():
