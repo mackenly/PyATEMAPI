@@ -146,3 +146,15 @@ class Api:
         return {
                 "error": "invalid request",
             }
+
+    def options(self, path, passphrase=None, ip=None):
+        """
+        Handle an OPTIONS request to the API.
+        :param ip: ip of the ATEM
+        :param passphrase: passphrase to compare requests to
+        :param path: the url path of the request.
+        :return: dict - the response to the request.
+        """
+        return {
+            "success": "Options request successful.",
+        }
