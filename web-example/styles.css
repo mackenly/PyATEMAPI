@@ -1,0 +1,27 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+.tally {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	background-color: black;
+	color: white;
+	font-size: 1.1em;
+	padding: 0.8em;
+}
+
+/* every other div in the tally */
+.tally:nth-child(2n) {
+	background-color: rgb(18, 18, 18);
+}
+
+.previewLive {
+	background-color: green;
+}
+
+.programLive {
+	background-color: red;
+}
