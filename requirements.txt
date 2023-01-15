@@ -1,6 +1,6 @@
 cefpython3==66.1
 charset-normalizer==3.0.1
-idna==3.3
+idna==3.4
 PyATEMMax==1.0b8
 Send2Trash==1.8.0
 six==1.16.0
