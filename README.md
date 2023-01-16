@@ -1,6 +1,6 @@
 # PyATEMAPI
 
-Python ATEM REST API
+Python Blackmagic Design ATEM REST API
 
 ## Purpose
 
@@ -33,14 +33,15 @@ Clone PyATEMAPI to your machine by running:
 
 `git clone https://github.com/mackenly/PyATEMAPI.git`
 
-While in the directory of the project, run setup.py to start the server. Pass in as parameters the IP address of the ATEM Switcher and
+While in the directory of the project, run server.py to start the server. Pass in as parameters the IP address of the ATEM Switcher and a
 simple passphrase for basic authentication.
 
 `python server.py 127.0.0.1 Password1`
 
 After starting the server, you can use the web API to interact with the ATEM Switcher.
 
-<br>**Testing**<br> If you would like to test this API, you can use a tool called [PyATEMSim](https://github.com/jonknoll/pyAtemSim). In the
+#### Testing
+If you would like to test this API, you can use a tool called [PyATEMSim](https://github.com/jonknoll/pyAtemSim). In the
 directory of the simulator simply run `python atem_server.py` and you will be able to interact with the ATEM Switcher's provided path and
 port via this API. This simulator doesn't provide all the functionality of a real switcher and seems to have issues with input numbers so
 don't rely on it for important testing.
@@ -52,7 +53,7 @@ The API documentation is available through Postman at
 
 ## Demo
 
-To demonstrate and test the API, a simple web example is provided. To run the example, enter the `web-example` directory, modify the const
+To demonstrate and test the API, a basic web example is provided. To run the example, enter the `web-example` directory, modify the const
 in at the top of `script.js` with the values you're using to run the server, then open the `index.html` file in a browser.
 
 <img src="./assets/example-screenshot.jpg" width="500">
@@ -63,4 +64,4 @@ Contributions are welcome. Please open an issue or pull request on [mackenly/PyA
 
 ## License
 
-The MIT License (MIT)
+[The MIT License (MIT)](./LICENSE.md)
