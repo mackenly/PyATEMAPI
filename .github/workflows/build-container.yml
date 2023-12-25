@@ -50,7 +50,7 @@ jobs:
           push: true
           tags: nuvious/pyatemapi:${{ steps.previoustag.outputs.tag }}
           labels: ${{ steps.meta.outputs.labels }}
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v3
