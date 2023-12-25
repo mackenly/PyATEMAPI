@@ -12,4 +12,3 @@ RUN chmod +x entrypoint.sh
 EXPOSE 5555
 
 ENTRYPOINT ["/app/entrypoint.sh"]
-# CMD ["entrypoint.sh"]

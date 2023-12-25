@@ -1,0 +1,5 @@
+services:
+  pyatemapi:
+    image: nuvious/pyatemapi
+    ports:
+      - "5555:5555"
