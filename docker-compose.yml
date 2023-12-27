@@ -1,0 +1,5 @@
+services:
+  pyatemapi:
+    image: mackenly/pyatemapi
+    ports:
+      - "5555:5555"

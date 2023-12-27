@@ -1,0 +1,24 @@
+name: Weekly Build
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron:  '0 14 * * 1'
+
+jobs:
+    delete-weekly-tag:
+        name: Delete weekly tag
+        runs-on: ubuntu-latest
+        steps:
+            # Checkout the default branch
+            - name: Check out the repo
+              uses: actions/checkout@v4
+
+            # Create a new tag; force creation will delete weekly and re-push it on latest commit on main
+            # This will trigger build-container workflow and update the weekly tag in docker hub
+            - uses: rickstaa/action-create-tag@v1
+              id: "tag_create"
+              with:
+                tag: "weekly"
+                force_push_tag: true
+                message: "Weekly build"
