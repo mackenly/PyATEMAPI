@@ -88,9 +88,9 @@ class Action:
         :return: current program input.
         """
         if dsk is not None:
-            self.switcher.setDownstreamKeyerTie(dsk, not self.switcher.downstreamKeyer[dsk].Tie)
+            self.switcher.setDownstreamKeyerTie(dsk, not self.switcher.downstreamKeyer[dsk].tie)
         return {
-            "result": self.switcher.downstreamKeyer[dsk].Tie,
+            "result": self.switcher.downstreamKeyer[dsk].tie,
         }
 
     def preview(self, source=None):
