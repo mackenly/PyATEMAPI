@@ -37,9 +37,42 @@ Clone PyATEMAPI to your machine by running:
 
 `git clone https://github.com/mackenly/PyATEMAPI.git`
 
-While in the directory of the project, run server.py to start the server. Pass in as parameters the IP address of the ATEM switcher and a simple passphrase for basic authentication.
+While in the directory of the project, run server.py to start the server. Pass in as parameters the IP address of the ATEM switcher and a simple passphrase for basic authentication. If running on native python, best practice is to read these variables in with the `read` command in Linux/Mac or the `Read-Host` command in Windows:
 
-`python server.py 127.0.0.1 Password1`
+### Linux/Mac
+
+```bash
+read -s PASSPHRASE
+read SERVER_IP
+python3 server.py
+```
+
+### Windows
+
+```powershell
+$securedValue = Read-Host "Passphrase" -AsSecureString
+$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedValue)
+$env:PASSPHRASE = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
+$env:SERVER_IP = Read-Host "Atem Device IP"
+python server.py
+```
+
+NOTE: Some versions of powershell support `Read-Host "Password" -MaskInput` as well, which would reduce the above
+command to simply:
+
+```powershell
+$env:PASSPHRASE = Read-Host "Passphrase" -MaskInput
+$env:SERVER_IP = Read-Host "Atem Device IP"
+python server.py
+```
+
+### Use Command Line Arguments
+
+Alternatively you can use the `--ip` and `--passphrase` command line options though these will result in the passphrase
+being in plaintext in command line history logs such as `.bash_history`, other Linux/Mac shell histories, or
+`$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine` in Windows.
+
+`python server.py --ip 127.0.0.1 --passphrase Password1`
 
 After starting the server, you can use the web API to interact with the ATEM Switcher.
 
@@ -62,24 +95,26 @@ To demonstrate and test the API, a basic web controller example is provided. To 
 
 The application can be run via docker. This can be built using the repository defined container definition or using the DockerHub registered container.
 
-### Run from DockerHub
+### Create an ENV file
 
-You can run the application from the built images in DockerHub.
-
-```bash
-docker run -d -p 5555:5555 mackenly/pyatemapi:latest [SERVER_IP] ([PASSPHRASE])
-```
-
-### Run with docker-compose
-
-First define the parameters for the server in a `.env` file. A template is provided in `.docker_env_template`.
+The atem device ip and passphrase for the API will be pulled from environment variables. To do this we'll need to create
+and [env file](https://docs.docker.com/compose/environment-variables/env-file/) called `.env` which will be used by our
+docker and docker-compose instructions later. Just create the `.env` file and edit it to have the following variables:
 
 ```plaintext
 SERVER_IP=192.168.1.42
 PASSPHRASE=MySecretPassword
 ```
 
-You can then start the service:
+### Run from DockerHub
+
+You can run the application from the built images in DockerHub.
+
+```bash
+docker run -d -p 5555:5555 --env-file=.env mackenly/pyatemapi:latest
+```
+
+### Run with docker-compose
 
 ```bash
 docker-compose up -d
@@ -101,7 +136,7 @@ docker-compose down
 
 ```bash
 docker build -t pyatemapi .
-docker run -d -p 5555:5555 pyatemapi [SERVER_IP] ([PASSPHRASE])
+docker run -d -p 5555:5555 --env-file=.env pyatemapi
 ```
 
 ## Contributing

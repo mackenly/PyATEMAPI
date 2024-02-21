@@ -1,5 +1,8 @@
 services:
   pyatemapi:
-    image: mackenly/pyatemapi
+    image: temp
     ports:
       - "5555:5555"
+    environment:
+      - SERVER_IP
+      - PASSPHRASE

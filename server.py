@@ -3,6 +3,7 @@
 # Web: mackenly.com
 # Twitter: @mackenlyjones
 
+import os
 import argparse
 import logging
 import json
@@ -104,18 +105,18 @@ class GFG(BaseHTTPRequestHandler):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('ip', help='switcher IP address')
-    parser.add_argument('passphrase', help='passphrase to compare requests to', type=str, default='Password1')
+    parser.add_argument('--ip', help='switcher IP address', default='127.0.0.1')
+    parser.add_argument('--passphrase', help='passphrase to compare requests to', type=str, default='Password1')
     args = parser.parse_args()
 
     # set global variables
     global passphrase, ip
-    passphrase = args.passphrase
-    ip = args.ip
+    passphrase = os.environ.get('PASSPHRASE', args.passphrase)
+    ip = os.environ.get('SERVER_IP', args.ip)
 
     log.info("Initializing switcher")
     switcher.setLogLevel(logging.INFO) # Set switcher verbosity (try DEBUG to see more)
-    switcher.connect(args.ip)
+    switcher.connect(ip)
 
     log.info("Waiting for connection")
     switcher.waitForConnection()
