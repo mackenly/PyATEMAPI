@@ -1,6 +1,6 @@
 services:
   pyatemapi:
-    image: temp
+    image: mackenly/pyatemapi
     ports:
       - "5555:5555"
     environment:
