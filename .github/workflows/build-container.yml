@@ -40,8 +40,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          # images: mackenly/pyatemapi:${{ steps.previoustag.outputs.tag }}
-          images: nuvious/pyatemapi:${{ steps.previoustag.outputs.tag }}
+          images: mackenly/pyatemapi:${{ steps.previoustag.outputs.tag }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -49,8 +48,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: nuvious/pyatemapi:${{ steps.previoustag.outputs.tag }}
-          # tags: mackenly/pyatemapi:${{ steps.previoustag.outputs.tag }}
+          tags: mackenly/pyatemapi:${{ steps.previoustag.outputs.tag }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64
 
@@ -59,6 +57,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          # repository: mackenly/pyatemapi
-          repository: nuvious/pyatemapi
+          repository: mackenly/pyatemapi
           short-description: "A rest API server for Black Magic Design ATEM switchers."
