@@ -37,6 +37,10 @@ Clone PyATEMAPI to your machine by running:
 
 `git clone https://github.com/mackenly/PyATEMAPI.git`
 
+Install the required packages by running:
+
+`pip install -r requirements.txt`
+
 While in the directory of the project, run server.py to start the server. Pass in as parameters the IP address of the ATEM switcher and a simple passphrase for basic authentication. If running on native python, best practice is to read these variables in with the `read` command in Linux/Mac or the `Read-Host` command in Windows:
 
 ### Linux/Mac
