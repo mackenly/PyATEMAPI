@@ -14,8 +14,8 @@ from http.server import *
 # create the switcher object
 switcher = PyATEMMax.ATEMMax()
 api = Api(switcher)
-passphrase = 'Password1'
-ip = '127.0.0.1'
+passphrase = ''
+ip = ''
 
 
 class GFG(BaseHTTPRequestHandler):
@@ -105,7 +105,7 @@ class GFG(BaseHTTPRequestHandler):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--ip', help='switcher IP address', default='127.0.0.1')
+    parser.add_argument('--ip', help='switcher IP address')
     parser.add_argument('--passphrase', help='passphrase to compare requests to', type=str, default='Password1')
     args = parser.parse_args()
 
@@ -113,6 +113,11 @@ def main():
     global passphrase, ip
     passphrase = os.environ.get('PASSPHRASE', args.passphrase)
     ip = os.environ.get('SERVER_IP', args.ip)
+
+    # if no ip is provided, exit
+    if ip is None:
+        log.error("No IP address provided")
+        exit()
 
     log.info("Initializing switcher")
     switcher.setLogLevel(logging.INFO) # Set switcher verbosity (try DEBUG to see more)
@@ -131,7 +136,7 @@ def main():
     # this is used for running our
     # server as long as we wish
     # i.e. forever
-    print("Starting server on http://localhost:" + str(port.server_port))
+    log.info("Starting API server on http://localhost:" + str(port.server_port))
     port.serve_forever()
 
 
@@ -143,4 +148,13 @@ logging.basicConfig( datefmt='%H:%M:%S',
 log = logging.getLogger('PyATEMAPI')
 
 # run main to start the connection and server
-main()
+try:
+    main()
+except KeyboardInterrupt:
+    log.info("Exiting from keyboard interrupt")
+    switcher.disconnect()
+    exit()
+except Exception as e:
+    log.error("An error occurred: " + str(e))
+    switcher.disconnect()
+    exit()
