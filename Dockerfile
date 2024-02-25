@@ -7,8 +7,9 @@ COPY requirements.txt /app/
 RUN python3 -m pip install --upgrade pip>=23.3.2 && \
     pip3 install -r /app/requirements.txt
 COPY . .
-RUN chmod +x entrypoint.sh
+RUN chmod +x server.py
 
 EXPOSE 5555
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT [ "/usr/local/bin/python3" ]
+CMD ["/app/server.py"]
