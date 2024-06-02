@@ -25,6 +25,7 @@ an ATEM through the browser using simple web APIs with Javascript.
 -   [x] DSK Cut
 -   [x] Ping switcher
 -   [ ] Upload / manage media pool
+-   [ ] Audio control
 -   [x] Tested using ATEM Television Studio HD
 -   [x] [Docker Image](https://hub.docker.com/repository/docker/mackenly/pyatemapi/general)
 -   [ ] Support for options from env or config file
