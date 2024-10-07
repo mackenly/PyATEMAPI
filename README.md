@@ -6,7 +6,7 @@ Python Blackmagic Design ATEM REST API
 
 To provide a web API for interfacing with ATEM Switchers. The API is designed to be as simple as possible and to be as flexible as possible.
 
-Why build a web API for ATEM?
+*Why build a web API for ATEM?*
 
 This API allows developers to interact with ATEM Switchers without having to write desktop code. Instead, developers can now interact with
 an ATEM through the browser using simple web APIs with Javascript.
@@ -36,13 +36,31 @@ an ATEM through the browser using simple web APIs with Javascript.
 
 Clone PyATEMAPI to your machine by running:
 
-`git clone https://github.com/mackenly/PyATEMAPI.git`
+```bash
+git clone https://github.com/mackenly/PyATEMAPI.git
+```
 
-Install the required packages by running:
+Enter the project's directory, then install the required packages by running:
 
-`pip install -r requirements.txt`
+```bash
+pip install -r requirements.txt
+```
 
-While in the directory of the project, run server.py to start the server. Pass in as parameters the IP address of the ATEM switcher and a simple passphrase for basic authentication. If running on native python, best practice is to read these variables in with the `read` command in Linux/Mac or the `Read-Host` command in Windows:
+While in the directory of the project, run ` python server.py` to start the server. Pass in as parameters the IP address `--ip` of the ATEM switcher and a simple passphrase `--passphrase` for high level authentication. 
+
+The passphrase is optional. If you do not include a passphrase, one will not be required. If yo do use a passphrase, make sure to pass it in with your requests in the Authorization header.
+
+```bash
+python server.py --ip 127.0.0.1 --passphrase Password1`
+````
+
+> [!WARNING]
+> Passing sensitive data in the command line will result in the passphrase being in plaintext in command line history logs such as in `.bash_history`, other Linux/Mac shell histories, or `$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine` in Windows. This probably doesn't matter for most users, but if you're concerned about it, you can use the following methods to pass in sensitive data:
+
+<details>
+<summary>Best practices for passing in sensitive variables</summary>
+
+If running on native python, best practice is to read these variables in with the `read` command in Linux/Mac or the `Read-Host` command in Windows:
 
 ### Linux/Mac
 
@@ -70,22 +88,11 @@ $env:PASSPHRASE = Read-Host "Passphrase" -MaskInput
 $env:SERVER_IP = Read-Host "Atem Device IP"
 python server.py
 ```
-
-### Use Command Line Arguments
-
-Alternatively you can use the `--ip` and `--passphrase` command line options though these will result in the passphrase
-being in plaintext in command line history logs such as `.bash_history`, other Linux/Mac shell histories, or
-`$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine` in Windows.
-
-`python server.py --ip 127.0.0.1 --passphrase Password1`
+</details>
 
 After starting the server, you can use the web API to interact with the ATEM Switcher.
 
-#### Testing
-
-If you would like to test this API, you can use a tool called [PyATEMSim](https://github.com/jonknoll/pyAtemSim). In the directory of the simulator, simply run `python atem_server.py` and you will be able to interact with the simulated ATEM switcher's provided IP and port via this API. This simulator doesn't provide all the functionality of a real switcher and seems to have issues with input numbers, so don't rely on it for important testing.
-
-## Documentation
+## API Documentation
 
 The API documentation is available through Postman at
 [https://documenter.getpostman.com/view/19380446/UzQpvT1y](https://documenter.getpostman.com/view/19380446/UzQpvT1y).
@@ -96,9 +103,31 @@ To demonstrate and test the API, a basic web controller example is provided. To 
 
 <img src="./assets/example-screenshot.jpg" width="500">
 
+## Example Request
+To get the tally data from your ATEM switcher, you use Javascript, as shown below:
+
+```javascript
+fetch("http://localhost:5555/tally", {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Password1'
+  },
+})
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+The response should look something like this:
+```json
+[{'source': 1, 'preview': False, 'program': True}, {'source': 2, 'preview': False, 'program': False}, {'source': 3, 'preview': True, 'program': False}, {'source': 4, 'preview': False, 'program': False}, {'source': 5, 'preview': False, 'program': False}, {'source': 6, 'preview': False, 'program': False}, {'source': 7, 'preview': False, 'program': False}, {'source': 8, 'preview': False, 'program': False}]
+```
+
+Again, view [https://documenter.getpostman.com/view/19380446/UzQpvT1y](https://documenter.getpostman.com/view/19380446/UzQpvT1y) for more examples and documentation.
+
 ## Docker
 
-The application can be run via docker. This can be built using the repository defined container definition or using the DockerHub registered container.
+The application can be run via Docker. This can be built using the repository defined container definition or using the DockerHub registered container found on [mackenly/pyatemapi](https://hub.docker.com/repository/docker/mackenly/pyatemapi/general). Some users run this locally on Synology NAS devices, which allow you to run Docker images, on a Raspberry Pi, or within a dedicated Docker server with other production automation apps.
 
 ### Create an ENV file
 
@@ -144,9 +173,15 @@ docker build -t pyatemapi .
 docker run -d -p 5555:5555 --env-file=.env pyatemapi
 ```
 
+## Testing
+
+If you would like to test this API, you can use a tool called [PyATEMSim](https://github.com/jonknoll/pyAtemSim). In the directory of the simulator, simply run `python atem_server.py` and you will be able to interact with the simulated ATEM switcher's provided IP and port via this API. This simulator doesn't provide all the functionality of a real switcher and seems to have issues with input numbers, so don't rely on it for important testing.
+
 ## Contributing
 
 Contributions are welcome. Please open an issue or pull request on [mackenly/PyATEMAPI](https://github.com/mackenly/PyATEMAPI).
+
+Fiscal contributions can be made through [GitHub Sponsors](https://github.com/sponsors/mackenly).
 
 ## License
 
