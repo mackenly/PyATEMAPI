@@ -48,7 +48,7 @@ pip install -r requirements.txt
 
 While in the directory of the project, run ` python server.py` to start the server. Pass in as parameters the IP address `--ip` of the ATEM switcher and a simple passphrase `--passphrase` for high level authentication. 
 
-The passphrase is optional. If you do not include a passphrase, one will not be required. If yo do use a passphrase, make sure to pass it in with your requests in the Authorization header.
+The passphrase is optional. If you do not include a passphrase, one will not be required. If you do use a passphrase, make sure to pass it in with your requests in the Authorization header (see below for an example).
 
 ```bash
 python server.py --ip 127.0.0.1 --passphrase Password1`
@@ -110,7 +110,7 @@ To get the tally data from your ATEM switcher, you use Javascript, as shown belo
 fetch("http://localhost:5555/tally", {
   method: 'GET',
   headers: {
-    'Authorization': 'Password1'
+    'Authorization': 'MyPassword'
   },
 })
   .then(response => response.text())
@@ -123,15 +123,15 @@ The response should look something like this:
 [{'source': 1, 'preview': False, 'program': True}, {'source': 2, 'preview': False, 'program': False}, {'source': 3, 'preview': True, 'program': False}, {'source': 4, 'preview': False, 'program': False}, {'source': 5, 'preview': False, 'program': False}, {'source': 6, 'preview': False, 'program': False}, {'source': 7, 'preview': False, 'program': False}, {'source': 8, 'preview': False, 'program': False}]
 ```
 
-Again, view [https://documenter.getpostman.com/view/19380446/UzQpvT1y](https://documenter.getpostman.com/view/19380446/UzQpvT1y) for more examples and documentation.
+Again, view [the API docs in Postman](https://documenter.getpostman.com/view/19380446/UzQpvT1y) for more examples and documentation.
 
 ## Docker
 
-The application can be run via Docker. This can be built using the repository defined container definition or using the DockerHub registered container found on [mackenly/pyatemapi](https://hub.docker.com/repository/docker/mackenly/pyatemapi/general). Some users run this locally on Synology NAS devices, which allow you to run Docker images, on a Raspberry Pi, or within a dedicated Docker server with other production automation apps.
+The application can be run via Docker. Use the DockerHub registered container found on [mackenly/pyatemapi](https://hub.docker.com/repository/docker/mackenly/pyatemapi/general) or build it yourself using the container definition. Some users run this locally on Synology NAS devices, which allow you to run Docker images, on a Raspberry Pi, or within a dedicated Docker server with other production automation apps.
 
 ### Create an ENV file
 
-The atem device ip and passphrase for the API will be pulled from environment variables. To do this we'll need to create
+The ATEM device ip and passphrase for the API will be pulled from environment variables. To do this we'll need to create
 and [env file](https://docs.docker.com/compose/environment-variables/env-file/) called `.env` which will be used by our
 docker and docker-compose instructions later. Just create the `.env` file and edit it to have the following variables:
 
