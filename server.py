@@ -22,7 +22,7 @@ class GFG(BaseHTTPRequestHandler):
     # on GET...
     def do_GET(self):
         global passphrase, ip
-        if self.headers.get('Authorization') == passphrase:
+        if self.headers.get('Authorization') == passphrase or passphrase == '':
             # http response code - success
             self.send_response(200)
             # http header - content type - html
@@ -55,7 +55,7 @@ class GFG(BaseHTTPRequestHandler):
     # on POST...
     def do_POST(self):
         global passphrase, ip
-        if self.headers.get('Authorization') == passphrase:
+        if self.headers.get('Authorization') == passphrase or passphrase == '':
             # http response code - success
             self.send_response(200)
             # http header - content type - html
@@ -106,7 +106,7 @@ class GFG(BaseHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--ip', help='switcher IP address')
-    parser.add_argument('--passphrase', help='passphrase to compare requests to', type=str, default='Password1')
+    parser.add_argument('--passphrase', help='passphrase to compare requests to', type=str, default='')
     args = parser.parse_args()
 
     # set global variables
@@ -118,6 +118,10 @@ def main():
     if ip is None:
         log.error("No IP address provided")
         exit()
+
+    if passphrase is None:
+        log.info("No passphrase provided, using no passphrase")
+        passphrase = ''
 
     log.info("Initializing switcher")
     switcher.setLogLevel(logging.INFO) # Set switcher verbosity (try DEBUG to see more)
