@@ -46,13 +46,16 @@ Enter the project's directory, then install the required packages by running:
 pip install -r requirements.txt
 ```
 
-While in the directory of the project, run ` python server.py` to start the server. Pass in as parameters the IP address `--ip` of the ATEM switcher and a simple passphrase `--passphrase` for high level authentication. 
+While in the directory of the project, run ` python server.py` to start the server. Pass in as parameters the IP address `--ip` of the ATEM switcher, optionally a simple passphrase `--passphrase` for high level authentication, and optionally the port `--port` to run the server on (defaults to `5555`).
 
 The passphrase is optional. If you do not include a passphrase, one will not be required. If you do use a passphrase, make sure to pass it in with your requests in the Authorization header (see below for an example).
 
+The port is also optional. If you do not include a port, the server will run on port `5555`. If running via Docker, you can also map the port to a different port on the host machine using docker.
+
+
 ```bash
-python server.py --ip 127.0.0.1 --passphrase Password1`
-````
+python server.py --ip 127.0.0.1 --passphrase Password1 --port 5555
+```
 
 > [!WARNING]
 > Passing sensitive data in the command line will result in the passphrase being in plaintext in command line history logs such as in `.bash_history`, other Linux/Mac shell histories, or `$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine` in Windows. This probably doesn't matter for most users, but if you're concerned about it, you can use the following methods to pass in sensitive data:
