@@ -107,12 +107,14 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--ip', help='switcher IP address')
     parser.add_argument('--passphrase', help='passphrase to compare requests to', type=str, default='')
+    parser.add_argument('--port', help='port to start server on', type=int, default=5555)
     args = parser.parse_args()
 
     # set global variables
     global passphrase, ip
     passphrase = os.environ.get('PASSPHRASE', args.passphrase)
     ip = os.environ.get('SERVER_IP', args.ip)
+    preferred_port = os.environ.get('PORT', args.port)
 
     # if no ip is provided, exit
     if ip is None:
@@ -122,6 +124,11 @@ def main():
     if passphrase is None:
         log.info("No passphrase provided, using no passphrase")
         passphrase = ''
+
+    if preferred_port is None:
+        # if the default port is not 
+        log.info("No port provided, using default port 5555")
+        preferred_port = 5555
 
     log.info("Initializing switcher")
     switcher.setLogLevel(logging.INFO) # Set switcher verbosity (try DEBUG to see more)
@@ -135,7 +142,7 @@ def main():
     # this is the object which take port
     # number and the server-name
     # for running the server
-    port = ThreadingHTTPServer(('', 5555), GFG)
+    port = ThreadingHTTPServer(('', preferred_port), GFG)
 
     # this is used for running our
     # server as long as we wish
