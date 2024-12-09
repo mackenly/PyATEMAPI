@@ -2,7 +2,7 @@ charset-normalizer==3.4.0
 idna==3.10
 PyATEMMax==1.0b9
 Send2Trash==1.8.3
-six==1.16.0
+six==1.17.0
 tenacity==9.0.0
 urllib3==2.2.3
 wcwidth==0.2.13
