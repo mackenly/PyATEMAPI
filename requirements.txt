@@ -3,7 +3,7 @@ idna==3.11
 PyATEMMax==1.0b9
 Send2Trash==2.1.0
 six==1.17.0
-tenacity==9.1.2
+tenacity==9.1.4
 urllib3==2.6.3
 wcwidth==0.6.0
 webencodings==0.5.1
