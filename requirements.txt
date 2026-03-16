@@ -1,4 +1,4 @@
-charset-normalizer==3.4.5
+charset-normalizer==3.4.6
 idna==3.11
 PyATEMMax==1.0b9
 Send2Trash==2.1.0
