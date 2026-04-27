@@ -1,5 +1,5 @@
 charset-normalizer==3.4.7
-idna==3.11
+idna==3.13
 PyATEMMax==1.0b9
 Send2Trash==2.1.0
 six==1.17.0
